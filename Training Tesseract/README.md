@@ -3,7 +3,7 @@
 You can use the training script or follow the steps below in order to train Tesseract locally.
 
 ## Running the training script:
-You can use [train.sh](https://github.com/Zarana-Parekh/TesseractOCR/blob/master/trainingTesseract/train.sh) to train Tesseract with any language and different types of font styles as well as font sizes. 
+You can use [train.sh](https://github.com/USCDataScience/counterfeit-electronics-tesseract/blob/master/Training%20Tesseract/train.sh) to train Tesseract with any language and different types of font styles as well as font sizes. 
 
 Usage:
 ```
