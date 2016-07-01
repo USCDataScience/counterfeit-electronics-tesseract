@@ -41,7 +41,6 @@ function check_files_exist {
 function create_box_files {
     while read -r line
     do
-        echo $TESSERACT/tesseract
         $TESSERACT/tesseract $line.tif $line batch.nochop makebox
         if [ "$?" != 0 ]; then
             echo "Error during creating box files. Exiting now."
