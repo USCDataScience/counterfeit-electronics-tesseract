@@ -20,7 +20,7 @@ under the License.
 
 function usage {
     echo "usage: $programname [-l lang] [-tesspath tesseract_path] [-datapath trainingdata_path]"
-    echo "	-l,--lang			language"
+    echo "	-l,--lang			          language"
     echo "  -tesspath               path to tesseract bin directory"
     echo "  -datapath               path to training data directory"
     exit 1
