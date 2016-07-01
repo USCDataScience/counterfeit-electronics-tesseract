@@ -95,4 +95,4 @@ Tesseract is trained to detect sentences by default. In order to improve the res
 
 * Supply custom word list to Tesseract instead of standard dictionary it uses.
 * Modify tessedit_char_whitelist in tessdata/configs/digits to include only the characters you are interested in extracting.
-* If the page contains specific blocks of text only, set the page segmentation mode accordingly in the TesseractOCRConfig.properties file in tika-parser/src/main/resources/org/apache/tika/parser/ocr.
+* Set page segmentation mode in the command line based on where the text is located in the image.
