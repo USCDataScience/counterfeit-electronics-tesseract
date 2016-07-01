@@ -65,7 +65,6 @@ function input_box_files {
 # extract unicharset
 function exrtact_unicharset {
     $TESSERACT/unicharset_extractor *.box
-    echo "$?"
     if [ "$?" != 0 ]; then
         echo "Error during extracting unicharset. Exiting now."
         exit 1
@@ -75,7 +74,6 @@ function exrtact_unicharset {
 # create shapetable
 function create_shapetable {
     $TESSERACT/shapeclustering -F font_properties -U unicharset *.tr
-    echo "$?"
     if [ "$?" != 0 ]; then
         echo "Error while creating shapetable. Exiting now."
         exit 1
@@ -85,13 +83,11 @@ function create_shapetable {
 # create training data
 function generate_training_data {
     $TESSERACT/mftraining -F font_properties -U unicharset -O $LANG.unicharset *.tr
-    echo "$?"
     if [ "$?" != 0 ]; then
         echo "Error while creating training data. Exiting now."
         exit 1
     fi
     $TESSERACT/cntraining *.tr
-    echo "$?"
     if [ "$?" != 0 ]; then
         echo "Error while creating training data. Exiting now."
         exit 1
@@ -101,14 +97,12 @@ function generate_training_data {
 # generate dawg files from corresponding word lists
 function generate_dawg_files {
     $TESSERACT/wordlist2dawg words_list $LANG.word-dawg $LANG.unicharset
-    echo "$?"
     if [ "$?" != 0 ]; then
         echo "Error while creating word-dawg data. Exiting now."
         exit 1
     fi
 
     $TESSERACT/wordlist2dawg frequent_words_list $LANG.freq-dawg $LANG.unicharset
-    echo "$?"
     if [ "$?" != 0 ]; then
         echo "Error while creating freq-dawg data. Exiting now."
         exit 1
