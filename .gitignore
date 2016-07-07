@@ -1,0 +1,9 @@
+
+# MAC Files
+.DS_Store
+
+# Project Build Files
+target/
+.settings/
+.classpath
+.project
