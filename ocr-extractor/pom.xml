@@ -17,6 +17,7 @@
     <solrj.version>5.4.1</solrj.version>
     <args4j.version>2.32</args4j.version>
     <solr.version>1.0-SNAPSHOT</solr.version>
+    <jackson.version>1.9.3</jackson.version>
     <junit.version>3.8.1</junit.version>
   </properties>
 
@@ -69,6 +70,13 @@
 	    <groupId>args4j</groupId>
 	    <artifactId>args4j</artifactId>
 	    <version>${args4j.version}</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl -->
+	<dependency>
+	    <groupId>org.codehaus.jackson</groupId>
+	    <artifactId>jackson-core-asl</artifactId>
+	    <version>${jackson.version}</version>
 	</dependency>
 	
     <dependency>
