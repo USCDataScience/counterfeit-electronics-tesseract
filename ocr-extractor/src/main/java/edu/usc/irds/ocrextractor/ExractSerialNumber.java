@@ -6,10 +6,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -17,28 +18,17 @@ import org.apache.tika.cli.TikaCLI;
 import org.codehaus.jackson.JsonEncoding;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonGenerator;
-import org.json.simple.JSONObject;
+
+class compareSerialNums implements Comparator<String> {
+
+	@Override
+	public int compare(String o1, String o2) {
+		return o2.compareTo(o1);
+//				Integer.compare(o1.length(), o2.length());
+	}	
+}
 
 public class ExractSerialNumber {
-	
-	@Deprecated
-	public void updateFile(String filename, ArrayList<JSONObject> list, JSONObject o) {
-		FileWriter file;
-		try {
-			file = new FileWriter(filename);
-			System.setOut(new PrintStream(System.out));
-			for (int i = 0; i < list.size(); i++) {
-				System.out.println(list.get(i));
-			}
-
-			file.write(o.toJSONString());
-			file.write(System.lineSeparator());
-			file.flush();
-			file.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public void writeToJSON(String[] args) {
 		BufferedReader reader = null;
@@ -51,7 +41,7 @@ public class ExractSerialNumber {
 			
 			jGenerator = jFactory.createJsonGenerator(new File(args[1]), JsonEncoding.UTF8);
 	        jGenerator.writeStartObject();
-	        jGenerator.writeFieldName("counterfeit-electronics");
+	        jGenerator.writeFieldName("counterfeit_serials");
 	        jGenerator.writeStartArray();
 			
 			reader = new BufferedReader(new FileReader(args[0]));
@@ -72,7 +62,7 @@ public class ExractSerialNumber {
 							String arr[] = text.split(" ");
 
 							for (int i = 0; i < arr.length; i++) {
-								if (StringUtils.isAlphanumeric(arr[i]) && !StringUtils.isAlpha(arr[i])) {
+								if (StringUtils.isAlphanumeric(arr[i]) && !StringUtils.isAlpha(arr[i]) && arr[i].length() >= 5) {
 									serialNumbers.add(arr[i]);
 								}
 							}
@@ -82,6 +72,7 @@ public class ExractSerialNumber {
 						jGenerator.writeStartObject();
 				        jGenerator.writeStringField("image_id", line);
 				        jGenerator.writeFieldName("extracted_serials");
+				        Collections.sort(serialNumbers, new compareSerialNums());
 				        jGenerator.writeStartArray();
 				        
 				        for(String serialNumber: serialNumbers)
