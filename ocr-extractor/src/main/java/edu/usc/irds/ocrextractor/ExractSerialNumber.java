@@ -24,7 +24,6 @@ class compareSerialNums implements Comparator<String> {
 	@Override
 	public int compare(String o1, String o2) {
 		return o2.compareTo(o1);
-//				Integer.compare(o1.length(), o2.length());
 	}	
 }
 
@@ -41,14 +40,15 @@ public class ExractSerialNumber {
 			
 			jGenerator = jFactory.createJsonGenerator(new File(args[1]), JsonEncoding.UTF8);
 	        jGenerator.writeStartObject();
-	        jGenerator.writeFieldName("counterfeit_serials");
+	        jGenerator.writeFieldName("weapons");
 	        jGenerator.writeStartArray();
 			
 			reader = new BufferedReader(new FileReader(args[0]));
 			while ((line = reader.readLine()) != null) {
 				try {
-					if (line.endsWith(".jpg") || line.endsWith(".png")) {
-						File tmpOut = new File(line.substring(0, line.lastIndexOf(".")) + ".txt");
+//					if (line.endsWith(".jpg") || line.endsWith(".png")) {
+						String filename = line.replaceFirst("^file:", "");
+						File tmpOut = new File(filename.substring(0, line.lastIndexOf(".")) + ".txt");
 						System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream(tmpOut))));
 
 						String[] arg = { "-t", line };
@@ -68,7 +68,7 @@ public class ExractSerialNumber {
 							}
 
 						}
-						
+
 						jGenerator.writeStartObject();
 				        jGenerator.writeStringField("image_id", line);
 				        jGenerator.writeFieldName("extracted_serials");
@@ -87,7 +87,7 @@ public class ExractSerialNumber {
 						if (tmpReader != null) {
 							tmpReader.close();
 						}
-					}
+//					}
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
