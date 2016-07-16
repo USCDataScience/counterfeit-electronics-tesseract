@@ -40,7 +40,7 @@ public class ExractSerialNumber {
 			
 			jGenerator = jFactory.createJsonGenerator(new File(args[1]), JsonEncoding.UTF8);
 	        jGenerator.writeStartObject();
-	        jGenerator.writeFieldName("weapons");
+	        jGenerator.writeFieldName("counterfeit_serials");
 	        jGenerator.writeStartArray();
 			
 			reader = new BufferedReader(new FileReader(args[0]));
@@ -48,7 +48,7 @@ public class ExractSerialNumber {
 				try {
 //					if (line.endsWith(".jpg") || line.endsWith(".png")) {
 						String filename = line.replaceFirst("^file:", "");
-						File tmpOut = new File(filename.substring(0, line.lastIndexOf(".")) + ".txt");
+						File tmpOut = new File(filename + ".txt");
 						System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream(tmpOut))));
 
 						String[] arg = { "-t", line };
